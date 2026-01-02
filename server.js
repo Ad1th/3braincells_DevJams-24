@@ -1,5 +1,3 @@
-// server.js
-
 const express = require('express');
 const cors = require('cors');
 const fetch = require('node-fetch'); // Ensure you have node-fetch installed
@@ -31,10 +29,15 @@ app.post('/prompts', (req, res) => {
 // Endpoint to fetch response from Gemini API
 app.post('/gemini', async (req, res) => {
   const { prompt } = req.body;
-  const geminiApiKey = 'AIzaSyB_Q7STnMR74cWMyWg3hb8VDGt8UWsmJKc'; // Replace with your actual Gemini API key
+  
+  if (!prompt) {
+    return res.status(400).json({ message: 'Prompt is required.' });
+  }
+
+  const geminiApiKey = 'YOUR_GEMINI_API_KEY'; // Replace with your actual Gemini API key
 
   try {
-    // Constructing the prompt to explicitly ask for 3 relevant links
+    // Constructing the prompt to explicitly ask for relevant links
     const enhancedPrompt = `${prompt}\n\nPlease provide three relevant website links related to the topic.`;
 
     const response = await fetch(
@@ -49,7 +52,7 @@ app.post('/gemini', async (req, res) => {
             {
               parts: [
                 {
-                  text: enhancedPrompt, // Use the modified prompt here
+                  text: enhancedPrompt,
                 },
               ],
             },
@@ -76,6 +79,7 @@ app.post('/gemini', async (req, res) => {
     } else {
       res.json({ message: 'No links found in the response.' });
     }
+    
   } catch (error) {
     console.error('Error fetching response:', error.message);
     res.status(500).json({ message: 'Error fetching response.', error: error.message });
@@ -85,5 +89,3 @@ app.post('/gemini', async (req, res) => {
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
-
-

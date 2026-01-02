@@ -1,0 +1,30 @@
+{
+  "manifest_version": 3,
+  "name": "Productivity Analyzer",
+  "version": "1.0",
+  "web_accessible_resources":[{
+    "resources":["distraction.html"],
+    "matches":["<all_urls>"]
+  }],
+  "description": "Analyzes user behavior and provides productivity insights",
+  "permissions": [
+    "tabs",
+    "storage",
+    "alarms",
+    "notifications",
+    "webNavigation",
+    "scripting",
+    "activeTab"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "icons": {
+    "16": "icon12.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  }
+}

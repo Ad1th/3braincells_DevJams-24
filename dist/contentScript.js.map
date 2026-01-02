@@ -1,0 +1,1 @@
+{"version":3,"file":"contentScript.js","mappings":";;;;AAAA;AACA;AACA;AACA;AACA","sources":["webpack://devjams/./public/contentScript.js"],"sourcesContent":["chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {\n    if (request.action === \"getPageContent\") {\n      sendResponse({content: document.body.innerText});\n    }\n  });"],"names":[],"sourceRoot":""}
